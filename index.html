@@ -14,12 +14,20 @@
   --green:#6dd9a0;--amber:#e8b84a;
   --r:12px;--r2:8px;
 }
+body[data-theme="light"]{
+  --rose:#B94363;--rose-dark:#94324E;--rose-glow:rgba(185,67,99,0.14);
+  --noir:#FFF7FA;--card:#FFFFFF;--card2:#FFF2F6;--border:rgba(185,67,99,0.28);--border2:rgba(86,52,66,0.13);
+  --chrome:#8F5B6B;--chrome-dim:#6F5B65;--muted:#7E6570;--text:#342331;--text2:#5A4250;
+  --green:#247A53;--amber:#9A6500;
+}
 html{scroll-behavior:smooth}
 body{background:var(--noir);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(232,99,122,0.1) 0%,transparent 65%);pointer-events:none;z-index:0}
+body[data-theme="light"]::before{background:linear-gradient(180deg,rgba(255,215,227,0.66),rgba(225,245,237,0.42) 45%,transparent 78%)}
 
 /* ── NAV ── */
 nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:56px;gap:1rem}
+body[data-theme="light"] nav{background:rgba(255,247,250,0.92)}
 .logo-wrap{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .logo-icon{width:30px;height:30px;flex-shrink:0}
 .logo-text{line-height:1}
@@ -30,6 +38,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 .tab{background:none;border:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:1.2px;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:6px;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .tab.active{color:var(--rose);background:var(--rose-glow)}
 .tab:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04)}
+body[data-theme="light"] .tab:hover:not(.active){background:rgba(185,67,99,0.08)}
 .today-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--rose);margin-left:5px;vertical-align:middle;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
@@ -47,6 +56,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 /* ── BUTTONS ── */
 .btn{background:none;border:0.5px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all .18s;white-space:nowrap}
 .btn:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-glow)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn:disabled:hover{border-color:var(--border);color:var(--text);background:none}
 .btn-primary{background:var(--rose);border-color:var(--rose);color:#fff}
 .btn-primary:hover{background:var(--rose-dark);border-color:var(--rose-dark);color:#fff}
 .btn-ghost{border-color:transparent;color:var(--text2);padding:6px 10px}
@@ -80,6 +91,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 .cal-nav-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;color:var(--text)}
 .cal-nav-controls{display:flex;align-items:center;gap:6px}
 .cal-toggle{display:flex;background:rgba(255,255,255,0.04);border:0.5px solid var(--border2);border-radius:6px;overflow:hidden}
+body[data-theme="light"] .cal-toggle{background:rgba(52,35,49,0.04)}
 .cal-toggle-btn{background:none;border:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:all .15s}
 .cal-toggle-btn.active{background:var(--rose-glow);color:var(--rose)}
 .day-headers{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
@@ -90,6 +102,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 .day-cell .day-dot{width:4px;height:4px;border-radius:50%;background:var(--rose);margin-top:3px;opacity:0}
 .day-cell.filler{pointer-events:none;opacity:0}
 .day-cell.empty{background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.04)}
+body[data-theme="light"] .day-cell.empty{background:rgba(52,35,49,0.035);border-color:rgba(52,35,49,0.09)}
 .day-cell.empty .day-num{color:var(--muted)}
 .day-cell.logged{background:rgba(232,99,122,0.14);border-color:var(--rose)}
 .day-cell.logged .day-num{color:var(--rose)}
@@ -100,7 +113,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 .day-cell.missed .day-num{color:var(--amber)}
 .day-cell:hover:not(.filler){transform:scale(1.06)}
 
-/* ── FREQ BAR ── */
+/* ── NEXT ROUTINE / SETTINGS ── */
 .freq-bar-wrap{background:var(--card);border:0.5px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1rem}
 .freq-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .freq-bar-top span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
@@ -109,6 +122,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,10,11,0.92);backdrop-fi
 .freq-fill{height:100%;background:linear-gradient(90deg,var(--rose-dark),var(--rose));border-radius:3px;transition:width .7s cubic-bezier(.4,0,.2,1)}
 .freq-pips{display:flex;justify-content:space-between;margin-top:6px}
 .freq-pip{font-size:10px;color:var(--muted)}
+.next-routine-card,.settings-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1rem}
+.next-routine-top,.settings-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.next-routine-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1.4px;color:var(--rose);line-height:1}
+.next-routine-meta,.settings-copy{font-size:12px;color:var(--text2);line-height:1.45;margin-top:7px}
+.theme-toggle{display:flex;background:rgba(255,255,255,0.04);border:0.5px solid var(--border2);border-radius:8px;overflow:hidden;flex-shrink:0}
+body[data-theme="light"] .theme-toggle{background:rgba(52,35,49,0.04)}
+.theme-toggle button{background:none;border:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 13px;cursor:pointer;transition:all .15s}
+.theme-toggle button.active{background:var(--rose-glow);color:var(--rose)}
 
 /* ── FORMS ── */
 .form-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1rem}
@@ -119,6 +141,7 @@ input[type=text],input[type=date],select,textarea{background:rgba(255,255,255,0.
 input[type=text]:focus,input[type=date]:focus,select:focus,textarea:focus{border-color:var(--rose);background:rgba(232,99,122,0.06)}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a4a52' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
 select option{background:#1a161b;color:var(--text)}
+body[data-theme="light"] select option{background:#fff7fa;color:var(--text)}
 textarea{resize:vertical;min-height:60px;line-height:1.5}
 input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) hue-rotate(290deg) saturate(2);cursor:pointer}
 .add-ex-grid{display:grid;grid-template-columns:2fr 60px 60px 70px 36px;gap:7px;align-items:end;margin-bottom:10px}
@@ -150,7 +173,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
 .routine-ex-row:last-child{border-bottom:none}
 .routine-ex-name{font-size:13px}
 .routine-ex-detail{font-size:11px;color:var(--text2)}
-.routine-actions{display:flex;gap:6px;flex-shrink:0}
+.routine-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 
 /* ── HISTORY ── */
 .month-header{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--rose);margin:1.25rem 0 .6rem;display:flex;align-items:center;gap:10px}
@@ -165,6 +188,10 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
 .heat-1{background:rgba(232,99,122,0.28)}
 .heat-2{background:rgba(232,99,122,0.58)}
 .heat-3{background:var(--rose)}
+body[data-theme="light"] .heat-0{background:#F2DDE5}
+body[data-theme="light"] .heat-1{background:#E9AFC1}
+body[data-theme="light"] .heat-2{background:#D77291}
+body[data-theme="light"] .heat-3{background:var(--rose)}
 
 /* ── MODALS ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .22s}
@@ -211,7 +238,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
   .sec-title{font-size:28px;min-width:0}
   .btn{padding:8px 12px;letter-spacing:1px}
 
-  .goal-ring-wrap,.cal-card,.freq-bar-wrap,.form-card{padding:1rem;margin-bottom:.85rem}
+  .goal-ring-wrap,.cal-card,.freq-bar-wrap,.next-routine-card,.settings-card,.form-card{padding:1rem;margin-bottom:.85rem}
   .goal-ring-wrap{gap:.85rem}
   .ring-svg{width:62px;height:62px}
 
@@ -227,6 +254,9 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
   .day-cell{min-width:0;min-height:38px;border-radius:6px;padding:5px 0}
   .day-cell .day-num{font-size:17px}
   .day-cell:hover:not(.filler){transform:none}
+  .next-routine-top,.settings-row{align-items:flex-start}
+  .next-routine-name{font-size:22px}
+  .theme-toggle button{padding:10px 11px}
 
   .stats-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .heat-grid{grid-template-columns:repeat(14,minmax(0,1fr));gap:2px}
@@ -274,7 +304,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
 
   <div class="goal-ring-wrap">
     <svg class="ring-svg" width="72" height="72" viewBox="0 0 72 72">
-      <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+      <circle cx="36" cy="36" r="30" fill="none" stroke="var(--border2)" stroke-width="6"/>
       <circle id="ringCircle" cx="36" cy="36" r="30" fill="none" stroke="var(--rose)" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)"/>
     </svg>
     <div class="ring-info">
@@ -307,14 +337,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
     <div class="days-grid" id="calGrid"></div>
   </div>
 
-  <div class="freq-bar-wrap">
-    <div class="freq-bar-top">
-      <span>Weekly Frequency</span>
-      <strong id="freqLabel">—</strong>
-    </div>
-    <div class="freq-track"><div class="freq-fill" id="freqFill" style="width:0%"></div></div>
-    <div class="freq-pips" id="freqPips"></div>
-  </div>
+  <div class="next-routine-card" id="nextRoutineCard"></div>
 
   <div class="italic-accent">recent sessions</div>
   <div id="recentSessions"></div>
@@ -366,7 +389,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(0.4) sepia(1) 
       <span style="font-size:10px;color:var(--muted)">More</span>
     </div>
   </div>
-  <div class="form-card" id="topExercises"></div>
+  <div class="settings-card" id="themeSettings"></div>
 </div>
 
 <!-- ══ LOG SESSION MODAL ══ -->
@@ -521,6 +544,7 @@ const S = {
   editRoutineId: null,
   currentDetailId: null,
   tempGoal: 4,
+  theme: 'dark',
   calMode: 'week',   // 'week' | 'month'
   calOffset: 0,       // week offset or month offset from now
 };
@@ -535,6 +559,7 @@ function load() {
       S.sessions  = Array.isArray(d.sessions)  ? d.sessions  : [];
       S.routines  = Array.isArray(d.routines)   ? d.routines  : [];
       S.weeklyGoal = typeof d.weeklyGoal === 'number' ? d.weeklyGoal : 4;
+      S.theme = d.theme === 'light' ? 'light' : 'dark';
     }
   } catch(e) { console.warn('Load error', e); }
 }
@@ -543,9 +568,14 @@ function persist() {
     localStorage.setItem('bubagym_v2', JSON.stringify({
       sessions: S.sessions,
       routines: S.routines,
-      weeklyGoal: S.weeklyGoal
+      weeklyGoal: S.weeklyGoal,
+      theme: S.theme
     }));
   } catch(e) { console.warn('Save error', e); }
+}
+
+function applyTheme() {
+  document.body.dataset.theme = S.theme;
 }
 
 // ── DATE UTILS ─────────────────────────────────────────────────────────────
@@ -688,9 +718,6 @@ function renderCalendar() {
     }
     grid.innerHTML = html;
   }
-
-  // Update freq bar for current (offset=0 equivalent) week
-  renderFreqBar();
 }
 
 function dayCellHTML(date, today) {
@@ -726,7 +753,7 @@ function handleDayClick(date) {
 function renderLog() {
   renderGoalRing();
   renderCalendar();
-  renderFreqBar();
+  renderNextRoutine();
   renderRecentSessions();
   updateTodayDot();
 }
@@ -769,18 +796,43 @@ function renderGoalRing() {
   }
 }
 
-function renderFreqBar() {
-  const goal = S.weeklyGoal;
-  const weekDates = getWeekDates(0);
-  const done = weekDates.filter(d => S.sessions.some(s => s.date === d)).length;
-  const pct = Math.min(100, Math.round((done / goal) * 100));
-  document.getElementById('freqFill').style.width = pct + '%';
-  document.getElementById('freqLabel').textContent = `${done} / ${goal} days`;
-  const pips = document.getElementById('freqPips');
-  pips.innerHTML = '';
-  for (let i = 1; i <= goal; i++) {
-    pips.innerHTML += `<span class="freq-pip">${i}</span>`;
+function renderNextRoutine() {
+  const c = document.getElementById('nextRoutineCard');
+  if (!S.routines.length) {
+    c.innerHTML = `<div class="eyebrow">Upcoming Routine</div>
+      <div class="next-routine-name">Create a routine</div>
+      <div class="next-routine-meta">Your next routine will appear here once your routine list is set.</div>`;
+    return;
   }
+
+  const last = [...S.sessions].sort((a, b) =>
+    (b.date + b.id).localeCompare(a.date + a.id)
+  )[0];
+  let nextIdx = 0;
+  let reason = 'Start with the first routine in your library.';
+
+  if (last) {
+    const lastIdx = S.routines.findIndex(r =>
+      (last.routineId && r.id === last.routineId) || r.name === last.routineName
+    );
+    if (lastIdx !== -1) {
+      nextIdx = (lastIdx + 1) % S.routines.length;
+      reason = `After ${last.routineName || 'your last workout'}, continue with the next routine in your library order.`;
+    } else {
+      reason = 'Your last logged routine is no longer in the library, so start from the top.';
+    }
+  }
+
+  const routine = S.routines[nextIdx];
+  const exCount = (routine.exercises || []).length;
+  c.innerHTML = `<div class="next-routine-top">
+    <div>
+      <div class="eyebrow">Upcoming Routine</div>
+      <div class="next-routine-name">${escHtml(routine.name)}</div>
+      <div class="next-routine-meta">${exCount} exercise${exCount !== 1 ? 's' : ''}. ${escHtml(reason)}</div>
+    </div>
+    <button class="btn btn-primary" onclick="useRoutineToLog('${routine.id}')">Log</button>
+  </div>`;
 }
 
 function renderRecentSessions() {
@@ -908,11 +960,15 @@ function renderExList(containerId, exercises, removeFn) {
 function saveSession() {
   const date = document.getElementById('logDate').value;
   const routineName = document.getElementById('logRoutineName').value.trim() || 'Workout';
+  const selectedRoutineId = document.getElementById('logRoutine').value;
+  const matchedRoutine = S.routines.find(r => r.id === selectedRoutineId)
+    || S.routines.find(r => r.name === routineName);
   const notes = document.getElementById('logNotes').value.trim();
   if (!date) { showToast('Pick a date first'); return; }
   S.sessions.push({
     id: uid(),
     date,
+    routineId: matchedRoutine ? matchedRoutine.id : '',
     routineName,
     exercises: S.tempLogEx.map(e => ({ ...e })),
     notes
@@ -1038,11 +1094,17 @@ function renderRoutines() {
     );
     return;
   }
-  c.innerHTML = S.routines.map(r => `
+  c.innerHTML = S.routines.map((r, i) => `
     <div class="routine-card">
       <div class="routine-card-head">
         <div class="routine-name">${escHtml(r.name)}</div>
         <div class="routine-actions">
+          <button class="btn" onclick="moveRoutine('${r.id}',-1)" title="Move up" ${i === 0 ? 'disabled' : ''}>
+            <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:middle" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <button class="btn" onclick="moveRoutine('${r.id}',1)" title="Move down" ${i === S.routines.length - 1 ? 'disabled' : ''}>
+            <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:middle" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
           <button class="btn" onclick="useRoutineToLog('${r.id}')">Log</button>
           <button class="btn" onclick="openEditRoutine('${r.id}')">
             <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:middle" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -1064,7 +1126,18 @@ function renderRoutines() {
           : '<div style="font-size:12px;color:var(--muted);padding:6px 0">No exercises — click edit to add some.</div>'
         }
       </div>
-    </div>`).join('');
+	    </div>`).join('');
+}
+
+function moveRoutine(id, dir) {
+  const idx = S.routines.findIndex(r => r.id === id);
+  const nextIdx = idx + dir;
+  if (idx === -1 || nextIdx < 0 || nextIdx >= S.routines.length) return;
+  const [routine] = S.routines.splice(idx, 1);
+  S.routines.splice(nextIdx, 0, routine);
+  persist();
+  renderRoutines();
+  if (document.getElementById('view-log').classList.contains('active')) renderNextRoutine();
 }
 
 function useRoutineToLog(rid) {
@@ -1163,7 +1236,7 @@ function renderStats() {
       <div class="sub">across all sessions</div>
     </div>`;
   renderHeatMap();
-  renderTopExercises();
+  renderThemeSettings();
 }
 
 function renderHeatMap() {
@@ -1182,29 +1255,26 @@ function renderHeatMap() {
   }).join('');
 }
 
-function renderTopExercises() {
-  const allEx = S.sessions.flatMap(s => s.exercises || []);
-  const counts = {};
-  allEx.forEach(e => { if (e.name) counts[e.name] = (counts[e.name] || 0) + 1; });
-  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 8);
-  const c = document.getElementById('topExercises');
-  if (!sorted.length) {
-    c.innerHTML = `<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem">Top Exercises</div>
-      <div style="color:var(--muted);font-size:13px">Log sessions to see your most trained movements.</div>`;
-    return;
-  }
-  const max = sorted[0][1];
-  c.innerHTML = `<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">Top Exercises</div>` +
-    sorted.map(([name, count]) => `
-      <div style="margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-          <span style="font-size:13px">${escHtml(name)}</span>
-          <span style="font-size:11px;color:var(--text2)">${count}×</span>
-        </div>
-        <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden">
-          <div style="height:100%;width:${Math.round(count/max*100)}%;background:var(--rose);border-radius:2px"></div>
-        </div>
-      </div>`).join('');
+function renderThemeSettings() {
+  const c = document.getElementById('themeSettings');
+  c.innerHTML = `<div class="settings-row">
+    <div>
+      <div class="eyebrow">Display Mode</div>
+      <div class="next-routine-name">${S.theme === 'light' ? 'Light Pastel' : 'Dark Noir'}</div>
+      <div class="settings-copy">Switch between the original dark theme and a pastel light mode with higher-contrast text.</div>
+    </div>
+    <div class="theme-toggle" role="group" aria-label="Display mode">
+      <button class="${S.theme === 'dark' ? 'active' : ''}" onclick="setTheme('dark')">Dark</button>
+      <button class="${S.theme === 'light' ? 'active' : ''}" onclick="setTheme('light')">Light</button>
+    </div>
+  </div>`;
+}
+
+function setTheme(theme) {
+  S.theme = theme === 'light' ? 'light' : 'dark';
+  applyTheme();
+  persist();
+  renderThemeSettings();
 }
 
 // ── SESSION DETAIL ─────────────────────────────────────────────────────────
@@ -1256,6 +1326,7 @@ function saveGoal() {
 
 // ── INIT ───────────────────────────────────────────────────────────────────
 load();
+applyTheme();
 renderLog();
 </script>
 </body>
